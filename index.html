@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0b14" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>PyQuest, Learn Python in 30 Days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="bg-orbs" aria-hidden="true">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+  <span class="orb orb-3"></span>
+</div>
+
+<!-- Desktop top bar -->
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/></svg>
+    </span>
+    <div class="brand-text">
+      <h1>PyQuest</h1>
+      <p>Java to Python, the friendly way</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input id="global-search" type="search" placeholder="Search lessons, problems, syntax..." autocomplete="off" />
+    <kbd class="search-kbd">/</kbd>
+  </div>
+
+  <div class="topbar-actions">
+    <button class="icon-btn" id="btn-theme" title="Toggle theme" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36A5.4 5.4 0 0 1 12 3z"/></svg>
+    </button>
+    <div class="stat-chip" title="Level">
+      <span class="chip-icon">LV</span>
+      <span class="chip-value" id="stat-level">1</span>
+    </div>
+    <div class="stat-chip xp-chip" title="Experience points">
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 36 36" width="34" height="34">
+          <circle class="ring-bg" cx="18" cy="18" r="15.9" />
+          <circle class="ring-fill" id="xp-ring" cx="18" cy="18" r="15.9" pathLength="100" />
+        </svg>
+        <span class="ring-text" id="ring-text">0</span>
+      </div>
+      <span class="chip-label">XP</span>
+    </div>
+    <div class="stat-chip" title="Day streak">
+      <span class="chip-icon flame">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2s4 4 4 8a4 4 0 0 1-4 4 4 4 0 0 1-4-4c0-1.5 1-3 1-3s-3 1-3 5a6 6 0 0 0 12 0c0-6-6-10-6-10z"/></svg>
+      </span>
+      <span class="chip-value"><span id="stat-streak">0</span></span>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile top bar (compact) -->
+<header class="mobile-topbar">
+  <div class="m-brand">
+    <span class="logo small" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/></svg>
+    </span>
+    <strong>PyQuest</strong>
+  </div>
+  <div class="m-stats">
+    <span class="m-chip">LV <b id="stat-level-m">1</b></span>
+    <span class="m-chip xp">
+      <span class="m-bar"><span class="m-bar-fill" id="m-xp-fill"></span></span>
+      <b id="m-xp-text">0/100</b>
+    </span>
+    <span class="m-chip">
+      <svg viewBox="0 0 24 24" width="12" height="12"><path fill="currentColor" d="M12 2s4 4 4 8a4 4 0 0 1-4 4 4 4 0 0 1-4-4c0-1.5 1-3 1-3s-3 1-3 5a6 6 0 0 0 12 0c0-6-6-10-6-10z"/></svg>
+      <b id="stat-streak-m">0</b>
+    </span>
+  </div>
+  <button class="icon-btn small" id="btn-search-m" aria-label="Search">
+    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" d="M21 21l-4.3-4.3M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
+  </button>
+</header>
+
+<!-- Mobile search overlay -->
+<div class="search-sheet" id="search-sheet" hidden>
+  <div class="sheet-handle"></div>
+  <div class="sheet-search">
+    <input id="global-search-m" type="search" placeholder="Search anything..." autocomplete="off" />
+    <button class="text-btn" id="search-close">Cancel</button>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+<!-- Desktop tabs -->
+<nav class="tabs">
+  <button class="tab active" data-view="home">Today</button>
+  <button class="tab" data-view="learn">Learn</button>
+  <button class="tab" data-view="practice">Practice</button>
+  <button class="tab" data-view="cheats">Cheatsheet</button>
+  <button class="tab" data-view="progress">Progress</button>
+  <button class="tab ghost" id="btn-reset" title="Wipe all progress">Reset</button>
+</nav>
+
+<main id="view"></main>
+
+<!-- Mobile bottom tab bar (iOS style) -->
+<nav class="tabbar">
+  <button class="tabbar-btn active" data-view="home">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg>
+    <span>Today</span>
+  </button>
+  <button class="tabbar-btn" data-view="learn">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/></svg>
+    <span>Learn</span>
+  </button>
+  <button class="tabbar-btn" data-view="practice">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
+    <span>Practice</span>
+  </button>
+  <button class="tabbar-btn" data-view="cheats">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M6 2h9l5 5v15H6zM14 2v6h6"/></svg>
+    <span>Cheats</span>
+  </button>
+  <button class="tabbar-btn" data-view="progress">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M4 20V10h3v10zm6 0V4h3v16zm6 0v-7h3v7z"/></svg>
+    <span>You</span>
+  </button>
+</nav>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script src="js/data/lessons.js"></script>
+<script src="js/data/problems.js"></script>
+<script src="js/data/badges.js"></script>
+<script src="js/data/cheatsheet.js"></script>
+<script src="js/gamification.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
